@@ -1,31 +1,34 @@
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import './style.css';
 
 const HeaderComponent = () => {
   return (
-    <div>
-      <Nav tabs>
-        <NavItem>
-          <NavLink className="navLink" href="#">
-            男款
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink className="navLink" href="#">
-            女款
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink className="navLink" href="#">
-            最新消息
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink className="navLink" href="#">
-            聯絡我們
-          </NavLink>
-        </NavItem>
-      </Nav>
-    </div>
+    <ul className="nav">
+      <li className="nav-item">
+        <a className="nav-link active" aria-current="page" href="/">
+          <h6>男款</h6>
+        </a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/">
+          <h6>女款</h6>
+        </a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/">
+          <h6>最新消息</h6>
+        </a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/">
+          <h6>客製商品</h6>
+        </a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/">
+          <h6>聯絡我們</h6>
+        </a>
+      </li>
+    </ul>
   );
 };
 
