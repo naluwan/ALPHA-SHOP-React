@@ -1,0 +1,52 @@
+section .progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
+}
+
+section .progress-container .progress-bar {
+  display: flex;
+  flex-grow: 1;
+  max-width: 60px;
+  height: 1px;
+  margin: 0px 8px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+section .progress-container .progress-group {
+  display: flex;
+}
+
+section .progress-container .progress-group .progress-icon {
+  display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+section .progress-container .progress-group .text {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+  color: inherit;
+}
+
+section .progress-container .progress-group .icon {
+  width: inherit;
+  height: inherit;
+}
+
+section .progress-container .progress-label {
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--main-text);
+}
