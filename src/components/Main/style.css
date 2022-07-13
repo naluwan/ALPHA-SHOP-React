@@ -1,0 +1,191 @@
+main.site-main {
+  margin-top: 50px;
+  padding-left: var(--site-edge-margin);
+  padding-right: var(--site-edge-margin);
+  background-color: inherit;
+}
+
+main.site-main .main-container {
+  display: flex;
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+section .register-container h2 .register-title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: var(--main-text);
+}
+
+.form-input-group{
+  display: flex;
+  padding-top: 1rem;
+}
+
+.form-input{
+  padding: 0.5rem;
+}
+
+section.form-container {
+  display: flex;
+  margin-top: 64px;
+}
+
+section.form-container h3.form-title {
+  display: flex;
+  flex: 0 0 100%;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+section.form-body .col {
+  justify-content: space-between;
+}
+
+section.form-body .input-group {
+  margin-top: 24px;
+}
+
+section.form-body .input-group .input-label {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--input-label);
+  margin-bottom: 8px;
+}
+
+section.form-body .input-group .select-container {
+  position: relative;
+}
+
+section.form-body .input-group .select-container::after {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  z-index: -2;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 6px 5px 0 5px;
+  border-color: var(--select-arrow) transparent transparent transparent;
+  content: "";
+}
+
+section.form-body .input-group input, section.form-body .input-group select {
+  width: 100%;
+  padding: 12px 16px;
+  font-weight: 400;
+  font-size: 12px;
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 16px;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+section.form-body .input-group input {
+  color: var(--input-text);
+}
+
+section.form-body .input-group select {
+  color: var(--select-true);
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+section.form-body .input-group select:required:invalid {
+  color: var(--select-false);
+}
+
+section.form-body .input-group select option {
+  color: var(--select-true);
+}
+
+section.form-body .input-group select option[value=""][disabled] {
+  display: none;
+}
+
+section.form-body .radio-group {
+  position: relative;
+  justify-content: unset;
+  padding: 11px 20px;
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+section.form-body .radio-group input[type='radio'] {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+  align-self: center;
+  -webkit-appearance: none;
+}
+
+section.form-body .radio-group input[type='radio']::before {
+  content: '';
+  display: block;
+  width: inherit;
+  height: inherit;
+  border: 1px solid #222222;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+}
+
+section.form-body .radio-group input[type='radio']:checked::before {
+  border: 6px solid #2A2A2A;
+  background-color: #FFFFFF;
+}
+
+section.form-body .radio-group .radio-info {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+section.form-body .radio-group .radio-info .col {
+  margin-bottom: 2px;
+}
+
+section.form-body .radio-group .radio-info .text {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+}
+
+section.form-body .radio-group .radio-info .price, section.form-body .radio-group .radio-info .period {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+section.form-body .radio-group .radio-box-border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+section.form-body .radio-group input[type='radio'] ~ .radio-box-border {
+  border-radius: 4px;
+  border: 1px solid #F0F0F5;
+}
+
+section.form-body .radio-group input[type='radio']:checked ~ .radio-box-border {
+  border: 1px solid #2A2A2A;
+}
+
+section.form-body .radio-group #shipping-standard ~ .radio-info .shipping-text {
+  font-weight: normal;
+}
+
+section.form-body .radio-group #shipping-dhl ~ .radio-info .shipping-text {
+  font-weight: 700;
+}
+
