@@ -2,7 +2,7 @@ import './style.css';
 
 const FooterComponent = () => {
   return (
-    <div className="container">
+    <footer className="container pt-5">
       <div className="row align-items-center">
         <div className="col">LOGO</div>
         <div className="col">客戶服務</div>
@@ -10,7 +10,7 @@ const FooterComponent = () => {
         <div className="col">資訊</div>
         <div className="col">追蹤ALPHA Shop</div>
       </div>
-    </div>
+    </footer>
   );
 };
 
