@@ -1,0 +1,18 @@
+.button-group{
+  display: flex;
+  justify-content: space-between;
+}
+
+button.next{
+  background-color: #EF7499;
+  color: #fff;
+  margin: 5px;
+}
+
+button.prev{
+  background-color: transparent;
+  line-height: 20px;
+  font-weight: 400;
+  color: #000000;
+  border: none;
+}
