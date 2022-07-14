@@ -3,6 +3,7 @@ import Step1 from 'components/Step1/Step1';
 import Step2 from 'components/Step2/Step2';
 import Step3 from 'components/Step3/Step3';
 import ProgressControl from 'components/ProgressControl/ProgressControl';
+import Cart from 'components/Cart/Cart';
 import './style.css';
 import { useState } from 'react';
 
@@ -25,9 +26,7 @@ const MainComponent = () => {
           </section>
           <ProgressControl onStep={step} onSetStep={setStep} />
         </section>
-        <section className="col section-right">
-          <h1>section right</h1>
-        </section>
+        <Cart />
       </div>
     </main>
   );
