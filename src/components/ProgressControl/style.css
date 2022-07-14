@@ -16,3 +16,7 @@ button.prev{
   color: #000000;
   border: none;
 }
+
+.noShow{
+  visibility: hidden;
+}
