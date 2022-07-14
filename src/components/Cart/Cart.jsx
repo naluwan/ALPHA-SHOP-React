@@ -1,7 +1,7 @@
 import './style.css';
 import LineItem from 'components/LineItem/LineItem';
-import product1 from '../../assert/images/product1.jpeg';
-import product2 from '../../assert/images/product2.jpeg';
+import product1 from '../../assets/images/product1.jpeg';
+import product2 from '../../assets/images/product2.jpeg';
 
 const Cart = () => {
   const dummyData = [
