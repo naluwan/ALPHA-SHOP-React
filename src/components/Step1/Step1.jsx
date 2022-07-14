@@ -9,10 +9,12 @@ const Step1 = () => {
               <label className="form-label" htmlFor="genderSelect">
                 稱謂
               </label>
-              <select className="form-select" id="genderSelect">
-                <option value="mr" selected>
-                  先生
-                </option>
+              <select
+                className="form-select"
+                id="genderSelect"
+                defaultValue="mr"
+              >
+                <option value="mr">先生</option>
                 <option value="ms">女士</option>
                 <option value="mx">不明</option>
               </select>
@@ -62,7 +64,12 @@ const Step1 = () => {
               <label className="form-label" htmlFor="citySelect">
                 縣市
               </label>
-              <select className="form-select" id="citySelect" required>
+              <select
+                className="form-select"
+                id="citySelect"
+                defaultValue=""
+                required
+              >
                 <option value="" disabled>
                   請選擇縣市
                 </option>
