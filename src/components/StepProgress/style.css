@@ -1,4 +1,4 @@
-section .progress-container {
+/* section .progress-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,4 +49,54 @@ section .progress-container .progress-label {
   font-weight: 400;
   line-height: 24px;
   color: var(--main-text);
+} */
+
+.wizard {
+  display: flex;
+}
+
+.wizard__step {
+  /* Make all steps have the same width */
+  flex: 1;
+  text-align: center;
+}
+
+.wizard__dot {
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.wizard__connector {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.wizard__connector.active {
+  background-color: #111;
+}
+
+.wizard__number {
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  /* Rounded border */
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 9999px;
+  height: 32px;
+  width: 32px;
+
+  /* OPTIONAL: Spacing between it and connectors */
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.wizard__number.active {
+  /* border: 1px solid #111; */
+  background-color: #111;
+  color: #fff;
 }
