@@ -1,5 +1,5 @@
 import './style.css';
-import LineItem from 'components/LineItem/LineItem';
+import LineItem from 'components/LineItem';
 import { useState } from 'react';
 import product1 from '../../assets/images/product1.jpeg';
 import product2 from '../../assets/images/product2.jpeg';
