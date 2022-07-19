@@ -2,13 +2,12 @@ import './style.css';
 import React from 'react';
 
 type ProgressControlProps = {
-  onStep: number,
+  step: number,
   onSetStep: Function,
-  stepMapLength: number,
 };
 
 const ProgressControl: React.FC<ProgressControlProps> = (props) => {
-  const { onStep, onSetStep, stepMapLength } = props;
+  const { step, onSetStep } = props;
 
   const nextBtnAtClick = () => {
     onSetStep((prevStep) => prevStep + 1);
@@ -22,13 +21,13 @@ const ProgressControl: React.FC<ProgressControlProps> = (props) => {
     <section className="progress-control-container col-12 pt-5">
       <section className="button-group col-12" data-phase="credit-card">
         <button
-          className={`prev ${onStep === 0 ? 'noShow' : ''}`}
+          className={`prev ${step === 0 ? 'noShow' : ''}`}
           onClick={prevBtnAtClick}
         >
           &larr; 上一步
         </button>
         <div>
-          {onStep !== stepMapLength - 1 ? (
+          {step !== 2 ? (
             <button className="next btn btn-lg" onClick={nextBtnAtClick}>
               下一步 &rarr;
             </button>

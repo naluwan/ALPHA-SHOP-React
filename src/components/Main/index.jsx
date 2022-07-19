@@ -9,8 +9,8 @@ import { useState } from 'react';
 
 const MainComponent = () => {
   const [step, setStep] = useState(0);
-  const STEP_MAP = [Step1, Step2, Step3];
-  const CurrentStep = STEP_MAP[step];
+  const stepMap = [Step1, Step2, Step3];
+  const CurrentStep = stepMap[step];
   return (
     <main className="site-main">
       <div className="main-container">
@@ -19,15 +19,11 @@ const MainComponent = () => {
           data-phase="1"
           data-total-price="0"
         >
-          <StepProgress onStep={step} />
+          <StepProgress step={step} />
           <section className="form-container col col-12 pt-5">
             <CurrentStep />
           </section>
-          <ProgressControl
-            onStep={step}
-            onSetStep={setStep}
-            stepMapLength={STEP_MAP.length}
-          />
+          <ProgressControl step={step} onSetStep={setStep} />
         </section>
         <Cart />
       </div>
