@@ -1,9 +1,13 @@
 import './style.css';
 import cx from 'classnames';
+import React from 'react';
 
-const StepProgress = (props) => {
+type StepProgressProps = {
+  onStep: number,
+};
+
+const StepProgress: React.FC<StepProgressProps> = (props) => {
   const { onStep } = props;
-
   return (
     <>
       {/* <!-- register-title --> */}

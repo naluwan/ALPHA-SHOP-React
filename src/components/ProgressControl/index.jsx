@@ -1,6 +1,13 @@
 import './style.css';
+import React from 'react';
 
-const ProgressControl = (props) => {
+type ProgressControlProps = {
+  onStep: number,
+  onSetStep: Function,
+  stepMapLength: number,
+};
+
+const ProgressControl: React.FC<ProgressControlProps> = (props) => {
   const { onStep, onSetStep, stepMapLength } = props;
 
   const nextBtnAtClick = () => {

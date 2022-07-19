@@ -1,6 +1,18 @@
 import './style.css';
+import React from 'react';
 
-const LineItem = (props) => {
+type LineItemProps = {
+  id: number,
+  img: string,
+  productName: string,
+  productCount: number,
+  productPrice: number,
+  totalPrice: number,
+  plusBtnAtClick: Function,
+  minusBtnAtClick: Function,
+};
+
+const LineItem: React.FC<LineItemProps> = (props) => {
   const {
     id,
     img,
