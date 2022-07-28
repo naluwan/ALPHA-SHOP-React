@@ -1,12 +1,12 @@
 import './style.css';
 import cx from 'classnames';
-import React from 'react';
+import React, { memo } from 'react';
 
 type StepProgressProps = {
   step: number,
 };
 
-const StepProgress: React.FC<StepProgressProps> = (props) => {
+const StepProgress: React.FC<StepProgressProps> = memo((props) => {
   const { step } = props;
   return (
     <>
@@ -66,6 +66,6 @@ const StepProgress: React.FC<StepProgressProps> = (props) => {
       </div>
     </>
   );
-};
+});
 
 export default StepProgress;

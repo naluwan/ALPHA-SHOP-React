@@ -1,12 +1,12 @@
 import './style.css';
-import React from 'react';
+import React, { memo } from 'react';
 
 type ProgressControlProps = {
   step: number,
   onChangeStep: (condition: string) => void,
 };
 
-const ProgressControl: React.FC<ProgressControlProps> = (props) => {
+const ProgressControl: React.FC<ProgressControlProps> = memo((props) => {
   const { step, onChangeStep } = props;
 
   return (
@@ -33,6 +33,6 @@ const ProgressControl: React.FC<ProgressControlProps> = (props) => {
       </section>
     </section>
   );
-};
+});
 
 export default ProgressControl;

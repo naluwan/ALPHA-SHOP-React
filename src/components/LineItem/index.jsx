@@ -1,5 +1,5 @@
 import './style.css';
-import React from 'react';
+import React, { memo } from 'react';
 
 type LineItemProps = {
   id: number,
@@ -12,7 +12,7 @@ type LineItemProps = {
   minusBtnAtClick: Function,
 };
 
-const LineItem: React.FC<LineItemProps> = (props) => {
+const LineItem: React.FC<LineItemProps> = memo((props) => {
   const {
     id,
     img,
@@ -51,6 +51,6 @@ const LineItem: React.FC<LineItemProps> = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default LineItem;
