@@ -2,52 +2,42 @@ import './style.css';
 import React, { memo } from 'react';
 
 type LineItemProps = {
-  id: number,
+  id: string,
+  name: string,
   img: string,
-  productName: string,
-  productCount: number,
-  productPrice: number,
-  totalPrice: number,
-  plusBtnAtClick: Function,
-  minusBtnAtClick: Function,
+  price: number,
+  quantity: number,
+  onClickPlusBtn: (productId: string) => void,
+  onClickMinusBtn: (productId: string) => void,
 };
 
 const LineItem: React.FC<LineItemProps> = memo((props) => {
-  const {
-    id,
-    img,
-    productName,
-    productCount,
-    productPrice,
-    totalPrice,
-    plusBtnAtClick,
-    minusBtnAtClick,
-  } = props;
+  const { id, name, img, price, quantity, onClickPlusBtn, onClickMinusBtn } =
+    props;
 
-  const currentPrice = totalPrice === 0 ? productPrice : totalPrice;
   return (
     <div className="product-container col col-12">
       <img className="img-container" src={img} alt="product-img" />
       <div className="product-info">
-        <div className="product-name">{productName}</div>
+        <div className="product-name">{name}</div>
         <div className="product-control-container">
           <div className="product-control">
             <button
               className="product-action btn btn-secondary"
-              onClick={() => minusBtnAtClick(id)}
+              onClick={() => onClickMinusBtn(id)}
             >
               <span className="minus">-</span>
             </button>
-            <span className="product-count">{productCount}</span>
+            <span className="product-count">{quantity}</span>
             <button
               className="product-action btn btn-secondary"
-              onClick={() => plusBtnAtClick(id)}
+              onClick={() => onClickPlusBtn(id)}
             >
               <span className="plus">+</span>
             </button>
           </div>
         </div>
-        <div className="price">{currentPrice}</div>
+        <div className="price">{price}</div>
       </div>
     </div>
   );

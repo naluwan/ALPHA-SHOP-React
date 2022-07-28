@@ -5,7 +5,7 @@ import Step3 from 'components/Step3';
 import ProgressControl from 'components/ProgressControl';
 import Cart from 'components/Cart';
 import './style.css';
-import { useState, memo, useCallback, useEffect } from 'react';
+import { useState, memo, useCallback, useMemo } from 'react';
 
 type ProductType = {
   id: string,
@@ -34,13 +34,9 @@ const initialProducts: ProductType[] = [
 
 const MainComponent = memo(() => {
   const [step, setStep] = useState(0);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(initialProducts);
   const stepMap = [Step1, Step2, Step3];
   const CurrentStep = stepMap[step];
-
-  useEffect(() => {
-    setProducts(initialProducts);
-  }, []);
 
   const atChangeStep = useCallback((condition: string) => {
     switch (condition) {
@@ -54,6 +50,60 @@ const MainComponent = memo(() => {
         break;
     }
   }, []);
+
+  const atClickPlusBtn = useCallback(
+    (productId: string) => {
+      const newProducts = products.map((product: ProductType) => {
+        const { id, name, img, price, quantity } = product;
+        if (product.id === productId) {
+          const currentQuantity = quantity + 1;
+          const currentPrice = (price / quantity) * currentQuantity;
+          return {
+            id,
+            name,
+            img,
+            price: currentPrice,
+            quantity: currentQuantity,
+          };
+        }
+        return product;
+      });
+      setProducts(newProducts);
+    },
+    [products],
+  );
+
+  const atClickMinusBtn = useCallback(
+    (productId: string) => {
+      let newProducts = products.map((product: ProductType) => {
+        const { id, name, img, price, quantity } = product;
+        if (product.id === productId) {
+          const currentQuantity = quantity - 1;
+          const currentPrice = (price / quantity) * currentQuantity;
+          return {
+            id,
+            name,
+            img,
+            price: currentPrice,
+            quantity: currentQuantity,
+          };
+        }
+        return product;
+      });
+      newProducts = newProducts.filter(
+        (product: ProductType) => product.quantity > 0,
+      );
+      setProducts(newProducts);
+    },
+    [products],
+  );
+
+  const totalProductPrice = useMemo(() => {
+    if (products.length === 1) {
+      return products[0].price;
+    }
+    return products.reduce((acc, cur) => acc.price + cur.price);
+  }, [products]);
 
   return (
     <main className="site-main">
@@ -69,7 +119,12 @@ const MainComponent = memo(() => {
           </section>
           <ProgressControl step={step} onChangeStep={atChangeStep} />
         </section>
-        <Cart products={products} />
+        <Cart
+          products={products}
+          totalProductPrice={totalProductPrice}
+          onClickPlusBtn={atClickPlusBtn}
+          onClickMinusBtn={atClickMinusBtn}
+        />
       </div>
     </main>
   );

@@ -4,10 +4,14 @@ import React, { memo } from 'react';
 
 type CartProps = {
   products: array,
+  totalProductPrice: number,
+  onClickPlusBtn: (productId: string) => void,
+  onClickMinusBtn: (productId: string) => void,
 };
 
 const Cart: React.FC<CartProps> = memo((props) => {
-  const { products } = props;
+  const { products, totalProductPrice, onClickPlusBtn, onClickMinusBtn } =
+    props;
 
   const lineItems = products.map((product) => {
     const { id, name, img, price, quantity } = product;
@@ -19,6 +23,8 @@ const Cart: React.FC<CartProps> = memo((props) => {
         img={img}
         price={price}
         quantity={quantity}
+        onClickPlusBtn={onClickPlusBtn}
+        onClickMinusBtn={onClickMinusBtn}
       />
     );
   });
@@ -34,7 +40,7 @@ const Cart: React.FC<CartProps> = memo((props) => {
       </section>
       <section className="cart-info total col col-12">
         <div className="text">小計</div>
-        <div className="price">{123}</div>
+        <div className="price">$ {totalProductPrice}</div>
       </section>
     </section>
   );
