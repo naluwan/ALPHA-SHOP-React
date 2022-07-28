@@ -11,6 +11,20 @@ const MainComponent = () => {
   const [step, setStep] = useState(0);
   const stepMap = [Step1, Step2, Step3];
   const CurrentStep = stepMap[step];
+
+  const atChangeStep = (condition: string) => {
+    switch (condition) {
+      case 'prev':
+        setStep((prev) => prev - 1);
+        break;
+      case 'next':
+        setStep((prev) => prev + 1);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <main className="site-main">
       <div className="main-container">
@@ -23,7 +37,7 @@ const MainComponent = () => {
           <section className="form-container col col-12 pt-5">
             <CurrentStep />
           </section>
-          <ProgressControl step={step} onSetStep={setStep} />
+          <ProgressControl step={step} onChangeStep={atChangeStep} />
         </section>
         <Cart />
       </div>
