@@ -32,9 +32,35 @@ const initialProducts: ProductType[] = [
   },
 ];
 
+type ShippingType = {
+  id: string,
+  name: string,
+  period: string,
+  price: number,
+  checked: boolean,
+};
+
+const initialShippings: ShippingType[] = [
+  {
+    id: '1',
+    name: '標準運送',
+    period: '約 3~7 個工作天',
+    price: 0,
+    checked: true,
+  },
+  {
+    id: '2',
+    name: 'DHL 貨運',
+    period: '48 小時內送達',
+    price: 500,
+    checked: false,
+  },
+];
+
 const MainComponent = memo(() => {
   const [step, setStep] = useState(0);
   const [products, setProducts] = useState(initialProducts);
+  const [shippings, setShippings] = useState(initialShippings);
   const stepMap = [Step1, Step2, Step3];
   const CurrentStep = stepMap[step];
 
@@ -74,16 +100,14 @@ const MainComponent = memo(() => {
   );
 
   const atClickMinusBtn = useCallback(
-    (productId: string) => {
+    (id: string) => {
       let newProducts = products.map((product: ProductType) => {
-        const { id, name, img, price, quantity } = product;
-        if (product.id === productId) {
+        const { price, quantity } = product;
+        if (product.id === id) {
           const currentQuantity = quantity - 1;
           const currentPrice = (price / quantity) * currentQuantity;
           return {
-            id,
-            name,
-            img,
+            ...product,
             price: currentPrice,
             quantity: currentQuantity,
           };
@@ -105,6 +129,32 @@ const MainComponent = memo(() => {
     return products.reduce((acc, cur) => acc.price + cur.price);
   }, [products]);
 
+  const atSelectShipping = useCallback(
+    (id: string) => {
+      const newShippings = shippings.map((shipping: ShippingType) => {
+        if (shipping.id === id) {
+          return {
+            ...shipping,
+            checked: true,
+          };
+        }
+        return {
+          ...shipping,
+          checked: false,
+        };
+      });
+      setShippings(newShippings);
+    },
+    [shippings],
+  );
+
+  const shippingPrice = useMemo(() => {
+    const shippingSelected = shippings.filter(
+      (shipping: ShippingType) => shipping.checked,
+    );
+    return shippingSelected[0].price;
+  }, [shippings]);
+
   return (
     <main className="site-main">
       <div className="main-container">
@@ -115,13 +165,21 @@ const MainComponent = memo(() => {
         >
           <StepProgress step={step} />
           <section className="form-container col col-12 pt-5">
-            <CurrentStep />
+            {step !== 1 ? (
+              <CurrentStep />
+            ) : (
+              <CurrentStep
+                shippings={shippings}
+                onSelectShipping={atSelectShipping}
+              />
+            )}
           </section>
           <ProgressControl step={step} onChangeStep={atChangeStep} />
         </section>
         <Cart
           products={products}
           totalProductPrice={totalProductPrice}
+          shippingPrice={shippingPrice}
           onClickPlusBtn={atClickPlusBtn}
           onClickMinusBtn={atClickMinusBtn}
         />
