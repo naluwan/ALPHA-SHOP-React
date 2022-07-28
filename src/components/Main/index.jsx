@@ -5,14 +5,44 @@ import Step3 from 'components/Step3';
 import ProgressControl from 'components/ProgressControl';
 import Cart from 'components/Cart';
 import './style.css';
-import { useState } from 'react';
+import { useState, memo, useCallback, useEffect } from 'react';
 
-const MainComponent = () => {
+type ProductType = {
+  id: string,
+  name: string,
+  img: string,
+  price: number,
+  quantity: number,
+};
+
+const initialProducts: ProductType[] = [
+  {
+    id: '1',
+    name: '貓咪罐罐',
+    img: 'https://picsum.photos/300/300?text=1',
+    price: 100,
+    quantity: 2,
+  },
+  {
+    id: '2',
+    name: '貓咪干干',
+    img: 'https://picsum.photos/300/300?text=2',
+    price: 200,
+    quantity: 1,
+  },
+];
+
+const MainComponent = memo(() => {
   const [step, setStep] = useState(0);
+  const [products, setProducts] = useState([]);
   const stepMap = [Step1, Step2, Step3];
   const CurrentStep = stepMap[step];
 
-  const atChangeStep = (condition: string) => {
+  useEffect(() => {
+    setProducts(initialProducts);
+  }, []);
+
+  const atChangeStep = useCallback((condition: string) => {
     switch (condition) {
       case 'prev':
         setStep((prev) => prev - 1);
@@ -23,7 +53,7 @@ const MainComponent = () => {
       default:
         break;
     }
-  };
+  }, []);
 
   return (
     <main className="site-main">
@@ -39,10 +69,10 @@ const MainComponent = () => {
           </section>
           <ProgressControl step={step} onChangeStep={atChangeStep} />
         </section>
-        <Cart />
+        <Cart products={products} />
       </div>
     </main>
   );
-};
+});
 
 export default MainComponent;
