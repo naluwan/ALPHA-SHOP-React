@@ -3,32 +3,27 @@ import React from 'react';
 
 type ProgressControlProps = {
   step: number,
-  onSetStep: Function,
+  onChangeStep: (condition: string) => void,
 };
 
 const ProgressControl: React.FC<ProgressControlProps> = (props) => {
-  const { step, onSetStep } = props;
-
-  const nextBtnAtClick = () => {
-    onSetStep((prevStep) => prevStep + 1);
-  };
-
-  const prevBtnAtClick = () => {
-    onSetStep((prevStep) => prevStep - 1);
-  };
+  const { step, onChangeStep } = props;
 
   return (
     <section className="progress-control-container col-12 pt-5">
       <section className="button-group col-12" data-phase="credit-card">
         <button
           className={`prev ${step === 0 ? 'noShow' : ''}`}
-          onClick={prevBtnAtClick}
+          onClick={() => onChangeStep('prev')}
         >
           &larr; 上一步
         </button>
         <div>
           {step !== 2 ? (
-            <button className="next btn btn-lg" onClick={nextBtnAtClick}>
+            <button
+              className="next btn btn-lg"
+              onClick={() => onChangeStep('next')}
+            >
               下一步 &rarr;
             </button>
           ) : (
