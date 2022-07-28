@@ -1,4 +1,6 @@
-const Step2 = () => {
+import { memo } from 'react';
+
+const Step2 = memo(() => {
   return (
     <form className="col col-12" data-phase="shipping">
       <h3 className="form-title">運送方式</h3>
@@ -33,6 +35,6 @@ const Step2 = () => {
       </section>
     </form>
   );
-};
+});
 
 export default Step2;

@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import './style.css';
 
-const FooterComponent = () => {
+const FooterComponent = memo(() => {
   return (
     <footer className="site-footer">
       <div className="footer-container">
@@ -74,6 +75,6 @@ const FooterComponent = () => {
       </div>
     </footer>
   );
-};
+});
 
 export default FooterComponent;

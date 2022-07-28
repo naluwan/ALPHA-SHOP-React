@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import './style.css';
 
-const HeaderComponent = () => {
+const HeaderComponent = memo(() => {
   return (
     <header>
       <ul className="nav">
@@ -32,6 +33,6 @@ const HeaderComponent = () => {
       </ul>
     </header>
   );
-};
+});
 
 export default HeaderComponent;
