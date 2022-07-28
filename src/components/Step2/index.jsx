@@ -1,38 +1,39 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
+import ShippingItem from 'components/ShippingItem';
 
-const Step2 = memo(() => {
+type Step2Props = {
+  shippings: array,
+  onSelectShipping: (id: string) => void,
+};
+
+type ShippingType = {
+  id: string,
+  name: string,
+  period: string,
+  price: number,
+  checked: boolean,
+};
+
+const Step2: React.FC<Step2Props> = memo((props) => {
+  const { shippings, onSelectShipping } = props;
+  const shippingItems = shippings.map((shipping: ShippingType) => {
+    const { id, name, period, price, checked } = shipping;
+    return (
+      <ShippingItem
+        key={id}
+        id={id}
+        name={name}
+        period={period}
+        price={price}
+        checked={checked}
+        onSelectShipping={onSelectShipping}
+      />
+    );
+  });
   return (
     <form className="col col-12" data-phase="shipping">
       <h3 className="form-title">運送方式</h3>
-      <section className="form-body col col-12">
-        <label className="radio-group col col-12" data-price="0">
-          <input
-            id="shipping-standard"
-            type="radio"
-            name="shipping"
-            defaultChecked
-          />
-          <div className="radio-info">
-            <div className="col col-12">
-              <div className="text">標準運送</div>
-              <div className="price" />
-            </div>
-            <div className="period col col-12">約 3~7 個工作天</div>
-          </div>
-          <div className="radio-box-border" />
-        </label>
-        <label className="radio-group col col-12" data-price="500">
-          <input id="shipping-dhl" type="radio" name="shipping" />
-          <div className="radio-info">
-            <div className="col col-12">
-              <div className="text">DHL 貨運</div>
-              <div className="price" />
-            </div>
-            <div className="period col col-12">48 小時內送達</div>
-          </div>
-          <div className="radio-box-border" />
-        </label>
-      </section>
+      <section className="form-body col col-12">{shippingItems}</section>
     </form>
   );
 });
