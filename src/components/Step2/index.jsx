@@ -30,12 +30,7 @@ const Step2: React.FC<Step2Props> = memo((props) => {
       />
     );
   });
-  return (
-    <form className="col col-12" data-phase="shipping">
-      <h3 className="form-title">運送方式</h3>
-      <section className="form-body col col-12">{shippingItems}</section>
-    </form>
-  );
+  return <section className="form-body col col-12">{shippingItems}</section>;
 });
 
 export default Step2;
