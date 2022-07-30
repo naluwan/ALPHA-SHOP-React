@@ -63,6 +63,8 @@ const MainComponent = memo(() => {
   const [shippings, setShippings] = useState(initialShippings);
   const stepMap = [Step1, Step2, Step3];
   const CurrentStep = stepMap[step];
+  const stepTitle = ['寄送地址', '運送方式', '付款資訊'];
+  const currentTitle = stepTitle[step];
 
   const atChangeStep = useCallback((condition: string) => {
     switch (condition) {
@@ -77,33 +79,29 @@ const MainComponent = memo(() => {
     }
   }, []);
 
-  const atClickPlusBtn = useCallback(
-    (productId: string) => {
-      const newProducts = products.map((product: ProductType) => {
-        const { id, name, img, price, quantity } = product;
-        if (product.id === productId) {
+  const atClickPlusBtn = useCallback((id: string) => {
+    setProducts((prevList) => {
+      return prevList.map((product) => {
+        if (product.id === id) {
+          const { price, quantity } = product;
           const currentQuantity = quantity + 1;
           const currentPrice = (price / quantity) * currentQuantity;
           return {
-            id,
-            name,
-            img,
+            ...product,
             price: currentPrice,
             quantity: currentQuantity,
           };
         }
         return product;
       });
-      setProducts(newProducts);
-    },
-    [products],
-  );
+    });
+  }, []);
 
-  const atClickMinusBtn = useCallback(
-    (id: string) => {
-      let newProducts = products.map((product: ProductType) => {
-        const { price, quantity } = product;
+  const atClickMinusBtn = useCallback((id: string) => {
+    setProducts((prevList) => {
+      const newList = prevList.map((product) => {
         if (product.id === id) {
+          const { price, quantity } = product;
           const currentQuantity = quantity - 1;
           const currentPrice = (price / quantity) * currentQuantity;
           return {
@@ -114,24 +112,26 @@ const MainComponent = memo(() => {
         }
         return product;
       });
-      newProducts = newProducts.filter(
+      const filterList = newList.filter(
         (product: ProductType) => product.quantity > 0,
       );
-      setProducts(newProducts);
-    },
-    [products],
-  );
+      return filterList;
+    });
+  }, []);
 
   const totalProductPrice = useMemo(() => {
     if (products.length === 1) {
       return products[0].price;
     }
+    if (!products.length) {
+      return 0;
+    }
     return products.reduce((acc, cur) => acc.price + cur.price);
   }, [products]);
 
-  const atSelectShipping = useCallback(
-    (id: string) => {
-      const newShippings = shippings.map((shipping: ShippingType) => {
+  const atSelectShipping = useCallback((id: string) => {
+    setShippings((prevShippings) => {
+      prevShippings.map((shipping: ShippingType) => {
         if (shipping.id === id) {
           return {
             ...shipping,
@@ -143,10 +143,8 @@ const MainComponent = memo(() => {
           checked: false,
         };
       });
-      setShippings(newShippings);
-    },
-    [shippings],
-  );
+    });
+  }, []);
 
   const shippingPrice = useMemo(() => {
     const shippingSelected = shippings.filter(
@@ -165,14 +163,17 @@ const MainComponent = memo(() => {
         >
           <StepProgress step={step} />
           <section className="form-container col col-12 pt-5">
-            {step !== 1 ? (
-              <CurrentStep />
-            ) : (
-              <CurrentStep
-                shippings={shippings}
-                onSelectShipping={atSelectShipping}
-              />
-            )}
+            <form className="col col-12">
+              <h3 className="form-title">{currentTitle}</h3>
+              {step !== 1 ? (
+                <CurrentStep />
+              ) : (
+                <CurrentStep
+                  shippings={shippings}
+                  onSelectShipping={atSelectShipping}
+                />
+              )}
+            </form>
           </section>
           <ProgressControl step={step} onChangeStep={atChangeStep} />
         </section>
