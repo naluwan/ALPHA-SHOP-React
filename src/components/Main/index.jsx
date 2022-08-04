@@ -131,7 +131,7 @@ const MainComponent = memo(() => {
 
   const atSelectShipping = useCallback((id: string) => {
     setShippings((prevShippings) => {
-      prevShippings.map((shipping: ShippingType) => {
+      return prevShippings.map((shipping: ShippingType) => {
         if (shipping.id === id) {
           return {
             ...shipping,
