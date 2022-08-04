@@ -1,13 +1,9 @@
 import './style.css';
 import React, { memo } from 'react';
+import useCartContext from 'components/Cart/CartContent';
 
-type ProgressControlProps = {
-  step: number,
-  onChangeStep: (condition: string) => void,
-};
-
-const ProgressControl: React.FC<ProgressControlProps> = memo((props) => {
-  const { step, onChangeStep } = props;
+const ProgressControl: React.FC<ProgressControlProps> = memo(() => {
+  const { step, onChangeStep } = useCartContext();
 
   return (
     <section className="progress-control-container col-12 pt-5">

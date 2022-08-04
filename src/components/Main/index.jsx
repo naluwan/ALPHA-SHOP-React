@@ -6,6 +6,7 @@ import ProgressControl from 'components/ProgressControl';
 import Cart from 'components/Cart';
 import './style.css';
 import { useState, memo, useCallback, useMemo } from 'react';
+import { CartContext } from 'components/Cart/CartContent';
 
 type ProductType = {
   id: string,
@@ -153,39 +154,55 @@ const MainComponent = memo(() => {
     return shippingSelected[0].price;
   }, [shippings]);
 
+  const providerValue = useMemo(() => {
+    return {
+      products,
+      totalProductPrice,
+      shippingPrice,
+      currentTitle,
+      onClickPlusBtn: atClickPlusBtn,
+      onClickMinusBtn: atClickMinusBtn,
+      onChangeStep: atChangeStep,
+    };
+  }, [
+    products,
+    totalProductPrice,
+    shippingPrice,
+    currentTitle,
+    atClickMinusBtn,
+    atClickPlusBtn,
+    atChangeStep,
+  ]);
+
   return (
-    <main className="site-main">
-      <div className="main-container">
-        <section
-          className="register-container col col-lg-6 col-sm-12"
-          data-phase="1"
-          data-total-price="0"
-        >
-          <StepProgress step={step} />
-          <section className="form-container col col-12 pt-5">
-            <form className="col col-12">
-              <h3 className="form-title">{currentTitle}</h3>
-              {step !== 1 ? (
-                <CurrentStep />
-              ) : (
-                <CurrentStep
-                  shippings={shippings}
-                  onSelectShipping={atSelectShipping}
-                />
-              )}
-            </form>
+    <CartContext.Provider value={providerValue}>
+      <main className="site-main">
+        <div className="main-container">
+          <section
+            className="register-container col col-lg-6 col-sm-12"
+            data-phase="1"
+            data-total-price="0"
+          >
+            <StepProgress step={step} />
+            <section className="form-container col col-12 pt-5">
+              <form className="col col-12">
+                <h3 className="form-title">{currentTitle}</h3>
+                {step !== 1 ? (
+                  <CurrentStep />
+                ) : (
+                  <CurrentStep
+                    shippings={shippings}
+                    onSelectShipping={atSelectShipping}
+                  />
+                )}
+              </form>
+            </section>
+            <ProgressControl step={step} onChangeStep={atChangeStep} />
           </section>
-          <ProgressControl step={step} onChangeStep={atChangeStep} />
-        </section>
-        <Cart
-          products={products}
-          totalProductPrice={totalProductPrice}
-          shippingPrice={shippingPrice}
-          onClickPlusBtn={atClickPlusBtn}
-          onClickMinusBtn={atClickMinusBtn}
-        />
-      </div>
-    </main>
+          <Cart />
+        </div>
+      </main>
+    </CartContext.Provider>
   );
 });
 

@@ -1,5 +1,6 @@
 import './style.css';
 import React, { memo } from 'react';
+import useCartContext from 'components/Cart/CartContent';
 
 type LineItemProps = {
   id: string,
@@ -7,13 +8,11 @@ type LineItemProps = {
   img: string,
   price: number,
   quantity: number,
-  onClickPlusBtn: (productId: string) => void,
-  onClickMinusBtn: (productId: string) => void,
 };
 
 const LineItem: React.FC<LineItemProps> = memo((props) => {
-  const { id, name, img, price, quantity, onClickPlusBtn, onClickMinusBtn } =
-    props;
+  const { onClickPlusBtn, onClickMinusBtn } = useCartContext();
+  const { id, name, img, price, quantity } = props;
 
   return (
     <div className="product-container col col-12">

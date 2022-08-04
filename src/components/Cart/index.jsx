@@ -1,13 +1,12 @@
 import './style.css';
 import LineItem from 'components/LineItem';
 import React, { memo } from 'react';
+import useCartContext from 'components/Cart/CartContent';
 
 type CartProps = {
   products: array,
   totalProductPrice: number,
   shippingPrice: number,
-  onClickPlusBtn: (productId: string) => void,
-  onClickMinusBtn: (productId: string) => void,
 };
 
 type ProductType = {
@@ -18,14 +17,9 @@ type ProductType = {
   quantity: number,
 };
 
-const Cart: React.FC<CartProps> = memo((props) => {
-  const {
-    products,
-    totalProductPrice,
-    shippingPrice,
-    onClickPlusBtn,
-    onClickMinusBtn,
-  } = props;
+const Cart: React.FC<CartProps> = memo(() => {
+  const { products, totalProductPrice, shippingPrice, currentTitle } =
+    useCartContext();
 
   const lineItems = products.map((product: ProductType) => {
     const { id, name, img, price, quantity } = product;
@@ -37,8 +31,6 @@ const Cart: React.FC<CartProps> = memo((props) => {
         img={img}
         price={price}
         quantity={quantity}
-        onClickPlusBtn={onClickPlusBtn}
-        onClickMinusBtn={onClickMinusBtn}
       />
     );
   });
@@ -47,7 +39,7 @@ const Cart: React.FC<CartProps> = memo((props) => {
   return (
     <section className="cart-container col col-lg-5 col-sm-12">
       <h3 className="cart-title">購物籃</h3>
-
+      <h3 className="cart-title">目前步驟： {currentTitle}</h3>
       <section className="product-list col col-12" data-total-price="0" />
       {lineItems}
       <section className="cart-info shipping col col-12">
