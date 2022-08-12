@@ -70,7 +70,11 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         coupon,
-        totalAmount: calcTotalAmount(state.lineItems, coupon),
+        totalAmount: calcTotalAmount(
+          state.products,
+          coupon,
+          state.shippingPrice,
+        ),
       };
     }
     case 'CHANGE_STEP': {

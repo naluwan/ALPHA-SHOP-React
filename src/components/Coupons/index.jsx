@@ -1,12 +1,9 @@
 import React from 'react';
 import { coupons } from 'components/config';
+import useCartContext from 'components/context/CartContent';
 
-type CounponsProps = {
-  onAddCoupon: (coupon: string) => void,
-};
-
-const Coupons: React.FC<CounponsProps> = (props) => {
-  const { onAddCoupon } = props;
+const Coupons: React.FC<CouponsProps> = () => {
+  const { state, onAddCoupon } = useCartContext();
 
   return (
     <div className="coupon-btn-group">
@@ -14,7 +11,8 @@ const Coupons: React.FC<CounponsProps> = (props) => {
         return (
           <button
             key={coupon.id}
-            className="btn btn-info"
+            disabled={state.coupon && state.coupon.id === coupon.id}
+            className="btn btn-info m-1"
             onClick={() => {
               onAddCoupon(coupon);
             }}

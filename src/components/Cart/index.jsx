@@ -2,8 +2,8 @@ import './style.css';
 import LineItem from 'components/LineItem';
 import React, { memo } from 'react';
 import useCartContext from 'components/context/CartContent';
+import Coupons from 'components/Coupons';
 import type { Product } from '../types';
-// import Coupons from 'components/Coupons';
 
 type CartProps = {
   currentTitle: string,
@@ -33,6 +33,15 @@ const Cart: React.FC<CartProps> = memo((props) => {
       <h3 className="cart-title">目前步驟： {currentTitle}</h3>
       <section className="product-list col col-12" data-total-price="0" />
       {lineItems}
+      <section className="cart-info coupon col col-12">
+        <Coupons />
+        {state.coupon && (
+          <div className="text">使用折扣碼：{state.coupon.id}</div>
+        )}
+        {state.coupon && (
+          <div className="price">折購金額：$ {state.coupon.discount}</div>
+        )}
+      </section>
       <section className="cart-info shipping col col-12">
         <div className="text">運費</div>
         <div className="price">$ {state.shippingPrice}</div>

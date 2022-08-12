@@ -244,7 +244,6 @@ const MainComponent = memo(() => {
               <form className="col col-12">
                 <h3 className="form-title">{currentTitle}</h3>
                 <CurrentStep />
-                {/* {state.step !== 1 ? <CurrentStep /> : <CurrentStep />} */}
               </form>
             </section>
             <ProgressControl step={state.step} onChangeStep={atChangeStep} />
