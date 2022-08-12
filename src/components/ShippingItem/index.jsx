@@ -5,12 +5,11 @@ type ShippingItemProps = {
   name: string,
   period: string,
   price: number,
-  checked: boolean,
-  onSelectShipping: (id: string) => void,
+  onSelectShipping: (price: number) => void,
 };
 
 const ShippingItem: React.FC<ShippingItemProps> = memo((props) => {
-  const { id, name, period, price, checked, onSelectShipping } = props;
+  const { id, name, period, price, onSelectShipping } = props;
 
   return (
     <label className="radio-group col col-12" data-price={price}>
@@ -18,8 +17,8 @@ const ShippingItem: React.FC<ShippingItemProps> = memo((props) => {
         id="shipping-standard"
         type="radio"
         name="shipping"
-        defaultChecked={checked}
-        onChange={() => onSelectShipping(id)}
+        defaultChecked={id === '1'}
+        onChange={() => onSelectShipping(price)}
       />
       <div className="radio-info">
         <div className="col col-12">

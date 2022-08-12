@@ -4,10 +4,19 @@ import Step2 from 'components/Step2';
 import Step3 from 'components/Step3';
 import ProgressControl from 'components/ProgressControl';
 import Cart from 'components/Cart';
+import type { Coupon } from 'components/types';
 import './style.css';
-import { useState, memo, useCallback, useMemo } from 'react';
-import { CartContext } from 'components/Cart/CartContent';
+import { memo, useCallback, useMemo } from 'react';
+import { CartContext } from 'components/context/CartContent';
+import useShoppingCart from '../../hooks/useShoppingCart';
+import {
+  actionAddCoupon,
+  actionUpdateQuantity,
+  actionChangeStep,
+  actionSelectShipping,
+} from '../../hooks/actions';
 
+/*
 type ProductType = {
   id: string,
   name: string,
@@ -58,7 +67,45 @@ const initialShippings: ShippingType[] = [
   },
 ];
 
+// */
+
 const MainComponent = memo(() => {
+  const [state, dispatch] = useShoppingCart();
+  const stepMap = [Step1, Step2, Step3];
+  const CurrentStep = stepMap[state.step];
+  const stepTitle = ['寄送地址', '運送方式', '付款資訊'];
+  const currentTitle = stepTitle[state.step];
+  // const { products } = state;
+
+  const atUpdateQuantity = useCallback(
+    (id: string, quantity: number) => {
+      dispatch(actionUpdateQuantity(id, quantity));
+    },
+    [dispatch],
+  );
+
+  const atAddCoupon = useCallback(
+    (coupon: Coupon) => {
+      dispatch(actionAddCoupon(coupon));
+    },
+    [dispatch],
+  );
+
+  const atChangeStep = useCallback(
+    (step: number) => {
+      dispatch(actionChangeStep(step));
+    },
+    [dispatch],
+  );
+
+  const atSelectShipping = useCallback(
+    (price: number) => {
+      dispatch(actionSelectShipping(price));
+    },
+    [dispatch],
+  );
+
+  /*
   const [step, setStep] = useState(0);
   const [products, setProducts] = useState(initialProducts);
   const [shippings, setShippings] = useState(initialShippings);
@@ -153,7 +200,7 @@ const MainComponent = memo(() => {
     );
     return shippingSelected[0].price;
   }, [shippings]);
-
+  
   const providerValue = useMemo(() => {
     return {
       products,
@@ -173,7 +220,16 @@ const MainComponent = memo(() => {
     atClickPlusBtn,
     atChangeStep,
   ]);
+  // */
 
+  const providerValue = useMemo(() => {
+    return {
+      state,
+      onUpdateQuantity: atUpdateQuantity,
+      onAddCoupon: atAddCoupon,
+      onSelectShipping: atSelectShipping,
+    };
+  }, [state, atUpdateQuantity, atAddCoupon, atSelectShipping]);
   return (
     <CartContext.Provider value={providerValue}>
       <main className="site-main">
@@ -183,23 +239,17 @@ const MainComponent = memo(() => {
             data-phase="1"
             data-total-price="0"
           >
-            <StepProgress step={step} />
+            <StepProgress step={state.step} />
             <section className="form-container col col-12 pt-5">
               <form className="col col-12">
                 <h3 className="form-title">{currentTitle}</h3>
-                {step !== 1 ? (
-                  <CurrentStep />
-                ) : (
-                  <CurrentStep
-                    shippings={shippings}
-                    onSelectShipping={atSelectShipping}
-                  />
-                )}
+                <CurrentStep />
+                {/* {state.step !== 1 ? <CurrentStep /> : <CurrentStep />} */}
               </form>
             </section>
-            <ProgressControl step={step} onChangeStep={atChangeStep} />
+            <ProgressControl step={state.step} onChangeStep={atChangeStep} />
           </section>
-          <Cart />
+          <Cart currentTitle={currentTitle} />
         </div>
       </main>
     </CartContext.Provider>

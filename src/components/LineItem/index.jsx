@@ -1,19 +1,11 @@
 import './style.css';
 import React, { memo } from 'react';
-import useCartContext from 'components/Cart/CartContent';
+import useCartContext from 'components/context/CartContent';
+import { LineItemType } from 'components/types';
 
-type LineItemProps = {
-  id: string,
-  name: string,
-  img: string,
-  price: number,
-  quantity: number,
-};
-
-const LineItem: React.FC<LineItemProps> = memo((props) => {
-  const { onClickPlusBtn, onClickMinusBtn } = useCartContext();
+const LineItem: React.FC<LineItemType> = memo((props) => {
   const { id, name, img, price, quantity } = props;
-
+  const { onUpdateQuantity } = useCartContext();
   return (
     <div className="product-container col col-12">
       <img className="img-container" src={img} alt="product-img" />
@@ -23,14 +15,15 @@ const LineItem: React.FC<LineItemProps> = memo((props) => {
           <div className="product-control">
             <button
               className="product-action btn btn-secondary"
-              onClick={() => onClickMinusBtn(id)}
+              disabled={quantity === 1}
+              onClick={() => onUpdateQuantity(id, quantity - 1)}
             >
               <span className="minus">-</span>
             </button>
             <span className="product-count">{quantity}</span>
             <button
               className="product-action btn btn-secondary"
-              onClick={() => onClickPlusBtn(id)}
+              onClick={() => onUpdateQuantity(id, quantity + 1)}
             >
               <span className="plus">+</span>
             </button>
